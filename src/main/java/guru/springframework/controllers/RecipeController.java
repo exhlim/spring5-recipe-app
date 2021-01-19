@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class RecipeController {
 
+
     private final RecipeService recipeService;
 
     public RecipeController(RecipeService recipeService) {
@@ -23,7 +24,6 @@ public class RecipeController {
 
     @RequestMapping("/recipe/{id}/show")
     public String showById(@PathVariable String id, Model model){
-
         model.addAttribute("recipe", recipeService.findById(Long.valueOf(id)));
         return "recipe/show";
     }
@@ -37,7 +37,9 @@ public class RecipeController {
 
     @RequestMapping("recipe/{id}/update")
     public String updateRecipe(@PathVariable String id, Model model){
-        model.addAttribute("recipe", recipeService.findCommandById(Long.valueOf(id)));
+        /** Can we used the ID inside the recipeRepsitory here instead of the command object? **/
+        model.addAttribute("recipe", recipeService.findById(Long.valueOf(id)));
+//        model.addAttribute("recipe", recipeService.findCommandById(Long.valueOf(id)));
         return  "recipe/recipeform";
     }
 
